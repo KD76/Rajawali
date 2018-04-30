@@ -25,7 +25,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
         html.enabled = true
     }
 
-    jacocoClasspath = configurations['androidJacocoAnt']
+    jacocoClasspath = configurations['jacocoAnt']
 
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
     def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
@@ -40,7 +40,6 @@ task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
 
 android {
     compileSdkVersion rootProject.compileSdk
-    buildToolsVersion rootProject.buildTools
 
     defaultConfig {
         minSdkVersion 15
@@ -73,15 +72,16 @@ android {
     testOptions { 
         unitTests.returnDefaultValues = true
     }
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
-    compile project.depSupportAnnotations
-    testCompile 'junit:junit:4.12'
+    implementation project.depSupportAnnotations
+    testImplementation 'junit:junit:4.12'
 
-    androidTestCompile 'com.android.support.test:runner:0.4'
+    androidTestImplementation 'com.android.support.test:runner:0.4'
     // Set this dependency to use JUnit 4 rules
-    androidTestCompile 'com.android.support.test:rules:0.4'
+    androidTestImplementation 'com.android.support.test:rules:0.4'
 }
 
 apply from: '../maven_push.gradle'

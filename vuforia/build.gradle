@@ -19,7 +19,6 @@ if (isReleaseBuild()) {
 
 android {
     compileSdkVersion rootProject.compileSdk
-    buildToolsVersion rootProject.buildTools
 
     defaultConfig {
         minSdkVersion 15
@@ -57,15 +56,16 @@ android {
     tasks.withType(JavaCompile) {
         compileTask -> compileTask.dependsOn ndkBuild
     }
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile project.depAndroidSupport
-    compile project.depSupportAnnotations
+    implementation project.depAndroidSupport
+    implementation project.depSupportAnnotations
 
-    compile project(':rajawali')
+    implementation project(':rajawali')
 }
 
 File getNdkBuildFile() {

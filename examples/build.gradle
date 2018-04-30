@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion rootProject.compileSdk
-    buildToolsVersion rootProject.buildTools
+    compileSdkVersion 21
 
     defaultConfig {
         applicationId "org.rajawali3d.examples"
@@ -24,32 +23,26 @@ android {
         }
     }
 
-    productFlavors {
-        withVuforia {
-        }
-        withoutVuforia {
-        }
-    }
-
     dexOptions {
         // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
         preDexLibraries = !isTravis()
     }
 
     lintOptions {
-        abortOnError false;
+        abortOnError false
     }
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
-    compile project.depAndroidSupport
-    compile project.depAppCompat
-    compile project.depRecycler
-    compile project.depGSON
-    compile project.depIon
+    implementation project.depAndroidSupport
+    implementation project.depAppCompat
+    implementation project.depRecycler
+    implementation project.depGSON
+    implementation project.depIon
 
+    implementation project(':rajawali')
 
-    compile project(':rajawali')
     withVuforiaCompile project(':vuforia')
     withVuforiaCompile project(':vr')
 
