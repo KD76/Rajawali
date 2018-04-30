@@ -15,7 +15,7 @@ package org.rajawali3d.materials;
 import android.graphics.Color;
 import android.opengl.GLES20;
 import android.support.annotation.NonNull;
-import android.util.Log;
+
 import org.rajawali3d.BufferInfo;
 import org.rajawali3d.Object3D;
 import org.rajawali3d.lights.ALight;
@@ -33,6 +33,7 @@ import org.rajawali3d.materials.shaders.fragments.texture.AlphaMapFragmentShader
 import org.rajawali3d.materials.shaders.fragments.texture.DiffuseTextureFragmentShaderFragment;
 import org.rajawali3d.materials.shaders.fragments.texture.EnvironmentMapFragmentShaderFragment;
 import org.rajawali3d.materials.shaders.fragments.texture.NormalMapFragmentShaderFragment;
+import org.rajawali3d.materials.shaders.fragments.texture.OverlayTextureFragmentShaderFragment;
 import org.rajawali3d.materials.shaders.fragments.texture.SkyTextureFragmentShaderFragment;
 import org.rajawali3d.materials.textures.ATexture;
 import org.rajawali3d.materials.textures.ATexture.TextureException;
@@ -527,6 +528,7 @@ public class Material {
             //
 
             List<ATexture> diffuseTextures = null;
+            List<ATexture> overlayTextures = null;
             List<ATexture> normalMapTextures = null;
             List<ATexture> envMapTextures = null;
             List<ATexture> skyTextures = null;
@@ -547,6 +549,10 @@ public class Material {
                     case RENDER_TARGET:
                         if (diffuseTextures == null) diffuseTextures = new ArrayList<>();
                         diffuseTextures.add(texture);
+                        break;
+                    case OVERLAY:
+                        if (overlayTextures == null) overlayTextures = new ArrayList<>();
+                        overlayTextures.add(texture);
                         break;
                     case NORMAL:
                         if (normalMapTextures == null) normalMapTextures = new ArrayList<>();
@@ -604,6 +610,11 @@ public class Material {
 
             if (diffuseTextures != null && diffuseTextures.size() > 0) {
                 DiffuseTextureFragmentShaderFragment fragment = new DiffuseTextureFragmentShaderFragment(diffuseTextures);
+                mFragmentShader.addShaderFragment(fragment);
+            }
+
+            if (overlayTextures != null && overlayTextures.size() > 0) {
+                OverlayTextureFragmentShaderFragment fragment = new OverlayTextureFragmentShaderFragment(overlayTextures);
                 mFragmentShader.addShaderFragment(fragment);
             }
 

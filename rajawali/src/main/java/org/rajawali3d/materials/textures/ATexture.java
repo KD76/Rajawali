@@ -37,7 +37,8 @@ public abstract class ATexture {
 		CUBE_MAP,
 		SPHERE_MAP,
 		VIDEO_TEXTURE,
-		COMPRESSED
+		COMPRESSED,
+		OVERLAY
 	};
 
 	/**
