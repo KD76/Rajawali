@@ -1,5 +1,5 @@
 apply plugin: 'maven'
-apply plugin: 'signing'
+//apply plugin: 'signing'
 
 if (isReleaseBuild()) {
     println 'RELEASE BUILD'
@@ -86,9 +86,9 @@ afterEvaluate { project ->
         }
     }
 
-    signing {
-        sign configurations.archives
-    }
+//    signing {
+//        sign configurations.archives
+//    }
 
     task androidJavadocs(type: Javadoc) {
         source = android.sourceSets.main.java.srcDirs
